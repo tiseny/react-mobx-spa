@@ -1,0 +1,71 @@
+.Login_wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .inner-background{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url(../../assets/bg.jpg);
+    background-size: cover;
+    filter: blur(3px);
+  }
+
+  .login_form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -175px 0 0 -160px;
+    width: 320px;
+    height: 350px;
+    padding: 36px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, .08);
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    button {
+      width: 100%;
+    }
+    .login-account {
+        color: #999;
+        text-align: center;
+        margin-top: 16px;
+        span {
+            &:first-child {
+                margin-right: 16px;
+            }
+        }
+    }
+  }
+
+  .login-logo {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    margin-bottom: 24px;
+    img {
+      width: 40px;
+      margin-right: 15px;
+      display: inline-block;
+    }
+    span {
+      vertical-align: middle;
+      font-size: 20px;
+      text-transform: uppercase;
+      display: inline-block;
+      font-weight: bold;
+      color: #000;
+    }
+  }
+}
+
+.ant-spin-container,
+.ant-spin-nested-loading {
+  height: 100%;
+  overflow: hidden;
+}
+
+
