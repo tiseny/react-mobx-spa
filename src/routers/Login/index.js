@@ -36,11 +36,7 @@ class Login extends Component {
           })
           this.pending = false
           if (result.IsSuccess) {
-            let message = `M&${userCode}&${password}`
-            let key = 'react_starter'
-            let session = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA1(message, key))
-            Cookies.set('JSESSIONID', session, { expires: 1, path: '/' })
-            Cookies.set('userCode', userCode, { expires: 1, path: '/' })
+            Cookies.set('token', result.Token, { expires: 1, path: '/' })
             Root.updateName(userCode)
             history.push(`${config.rootAlias}/home`)
           } else {
