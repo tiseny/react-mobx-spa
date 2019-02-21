@@ -22,17 +22,17 @@ class FromBox extends Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('userCode', {
             rules: [{ required: true, message: '输入admin' }]
           })(
-            <Input prefix={<Icon type='user'/>} placeholder='admin' />
+            <Input prefix={<Icon type='user'/>} placeholder='ssh' />
           )}
         </FormItem>
         <FormItem>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: '密码是123456' }]
           })(
-            <Input prefix={<Icon type='lock'/>} type='password' placeholder='123456' />
+            <Input prefix={<Icon type='lock'/>} type='password' placeholder='654321' />
           )}
         </FormItem>
         <FormItem>

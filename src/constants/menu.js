@@ -1,10 +1,11 @@
+import config from '../../config'
 export default [{
   name: '首页',
-  path: '/home',
+  path: `${config.rootAlias}/home`,
   icon: 'home'
 }, {
   name: '其他',
-  path: '/module',
+  path: `${config.rootAlias}/module`,
   icon: 'heart',
   sub: [{
     name: '其他一',

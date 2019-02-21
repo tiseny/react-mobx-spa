@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 import Layouts from './Layouts'
 import Login from './Login'
 import store from '@/store'
+import config from '../../config'
 
 @withRouter
 class Routers extends Component {
@@ -14,13 +15,13 @@ class Routers extends Component {
   }
 
   checkJsessionID = () => {
-    if (this.props.location.pathname != '/login') {
+    if (this.props.location.pathname != `${config.rootAlias}/login`) {
       if (!Cookies.get('JSESSIONID')) {
-        this.props.history.replace('/login')
+        this.props.history.replace(`${config.rootAlias}/login`)
       }
     } else {
       if (Cookies.get('JSESSIONID')) {
-        this.props.history.replace('/home')
+        this.props.history.replace(`${config.rootAlias}/home`)
       }
     }
   }
@@ -28,9 +29,9 @@ class Routers extends Component {
   componentWillMount() {
     if (this.pathname == '/') {
       if (Cookies.get('JSESSIONID')) {
-        this.props.history.replace('/home')
+        this.props.history.replace(`${config.rootAlias}/home`)
       } else {
-        this.props.history.replace('/login')
+        this.props.history.replace(`${config.rootAlias}/login`)
       }
     } else {
       this.checkJsessionID()
@@ -45,8 +46,8 @@ class Routers extends Component {
     return (
       <Provider { ...store }>
         <Switch>
-          <Route path='/login' component={Login} />
-          <Route path='/' component={Layouts} />
+          <Route path={`${config.rootAlias}/login`} component={Login} />
+          <Route path={`${config.rootAlias}/`} component={Layouts} />
         </Switch>
       </Provider>
     )

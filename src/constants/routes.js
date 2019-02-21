@@ -1,5 +1,6 @@
 import Loadable from 'react-loadable'
 import { Spin } from 'antd'
+import config from '../../config'
 
 const Home = Loadable({
   loader: () => import('../routers/Home'),
@@ -14,9 +15,9 @@ const ModuleList = Loadable({
 })
 
 export default [{
-  'path': '/home',
+  'path': `${config.rootAlias}/home`,
   'component': Home
 }, {
-  'path': '/module/list',
+  'path': `${config.rootAlias}/module/list`,
   'component': ModuleList
 }]

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, withRouter } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
-import { Tooltip, Layout, Breadcrumb, Icon } from 'antd'
+import { Dropdown, Layout, Breadcrumb, Icon, Menu } from 'antd'
 import Cookies from 'js-cookie'
 import ROUTERS from '@/constants/routes'
 import './right.less'
@@ -31,12 +31,16 @@ class Right extends Component {
     return (
       <Layout>
         <Layout.Header style={{ background: '#fff', padding: 0 }}>
-          <div className='user'>
-            <Icon type="user"/>
-            <Tooltip title={<span style={{ fontSize: '14px', cursor: 'pointer' }} onClick={this.logout}>退出</span>}>
-              <span className='name'>{name}</span>
-            </Tooltip>
-          </div>
+          <Dropdown overlay={<Menu>
+            <Menu.Item key="0" onClick={this.logout}>退出</Menu.Item>
+          </Menu>} trigger={['click']}>
+            <div className='user'>
+              <Icon type="user"/>
+              <a className="ant-dropdown-link" href="#">
+                {name}
+              </a>
+            </div>
+          </Dropdown>
         </Layout.Header>
         <Layout.Content style={{ margin: '0 16px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>

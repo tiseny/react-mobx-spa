@@ -1,8 +1,8 @@
 import http from '../http'
-import API from '../api'
+import param from '../param'
 
 export default {
-    login(param) {
-        return http.get(API.LOGIN, param)
-    }
+  login(params) {
+    return http.post(`Passport?${param(params)}`)
+  }
 }
