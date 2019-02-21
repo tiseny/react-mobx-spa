@@ -7,8 +7,7 @@ import Right from './components/Right'
 class Layouts extends Component {
 
     logout = () => {
-      Cookies.remove('JSESSIONID', { path: '/' })
-      Cookies.remove('userName', { path: '/' })
+      Cookies.remove('token', { path: '/' })
       this.props.history.replace('/login')
     }
 
