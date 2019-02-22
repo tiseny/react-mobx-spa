@@ -14,13 +14,13 @@ class Routers extends Component {
     this.pathname = props.location.pathname
   }
 
-  checkJsessionID = () => {
+  checkToken = () => {
     if (this.props.location.pathname != `${config.rootAlias}/login`) {
-      if (!Cookies.get('JSESSIONID')) {
+      if (!Cookies.get('token')) {
         this.props.history.replace(`${config.rootAlias}/login`)
       }
     } else {
-      if (Cookies.get('JSESSIONID')) {
+      if (Cookies.get('token')) {
         this.props.history.replace(`${config.rootAlias}/home`)
       }
     }
@@ -28,18 +28,18 @@ class Routers extends Component {
 
   componentWillMount() {
     if (this.pathname == '/') {
-      if (Cookies.get('JSESSIONID')) {
+      if (Cookies.get('token')) {
         this.props.history.replace(`${config.rootAlias}/home`)
       } else {
         this.props.history.replace(`${config.rootAlias}/login`)
       }
     } else {
-      this.checkJsessionID()
+      this.checkToken()
     }
   }
 
   componentWillReceiveProps() {
-    this.checkJsessionID()
+    this.checkToken()
   }
 
   render() {

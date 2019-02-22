@@ -5,19 +5,19 @@ import config from '../../config'
 const Home = Loadable({
   loader: () => import('../routers/Home'),
   loading: Spin,
-  delay: 100
+  delay: 100000
 })
 
-const ModuleList = Loadable({
-  loader: () => import('../routers/Module/List'),
+const Map = Loadable({
+  loader: () => import('../routers/Amap'),
   loading: Spin,
-  delay: 100
+  delay: 100000
 })
 
 export default [{
   'path': `${config.rootAlias}/home`,
   'component': Home
 }, {
-  'path': `${config.rootAlias}/module/list`,
-  'component': ModuleList
+  'path': `${config.rootAlias}/amap`,
+  'component': Map
 }]

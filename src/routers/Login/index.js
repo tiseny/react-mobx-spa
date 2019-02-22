@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { observable } from 'mobx'
 import { message, Spin } from 'antd'
-import CryptoJS from 'crypto-js'
 import Cookies from 'js-cookie'
 import service from '@/service/modules/login'
 import FormBox from './components/FormBox'
 import config from '../../../config'
 import './index.less'
 
-@inject('Login', 'Root')
 @observer
 class Login extends Component {
     constructor(props) {
@@ -20,7 +18,7 @@ class Login extends Component {
     pending = false
 
     submit = form => {
-      const { Root, history } = this.props
+      const { history } = this.props
       form.validateFields(async(err, values) => {
         if (!err) {
           this.pending = true
@@ -37,7 +35,7 @@ class Login extends Component {
           this.pending = false
           if (result.IsSuccess) {
             Cookies.set('token', result.Token, { expires: 1, path: '/' })
-            Root.updateName(userCode)
+            Cookies.set('name', userCode)
             history.push(`${config.rootAlias}/home`)
           } else {
             message.error(result.Msg)

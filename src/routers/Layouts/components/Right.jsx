@@ -7,26 +7,20 @@ import ROUTERS from '@/constants/routes'
 import './right.less'
 
 @withRouter
-@inject('Root')
+@inject('breadcrumb')
 @observer
 class Right extends Component {
   constructor(props) {
     super(props)
   }
 
-  componentWillMount() {
-    let { userInfo, updateName } = this.props.Root
-    if (userInfo.name == '') {
-      updateName(Cookies.get('userName'))
-    }
-  }
-
   logout = () => {
-    this.props.logout()
+    Cookies.remove('token')
+    this.props.history.replace('/login')
   }
 
   render() {
-    const { name } = this.props.Root.userInfo
+    const { breadcrumb } = this.props
 
     return (
       <Layout>
@@ -37,17 +31,20 @@ class Right extends Component {
             <div className='user'>
               <Icon type="user"/>
               <a className="ant-dropdown-link" href="#">
-                {name}
+                {Cookies.get('name')}
               </a>
             </div>
           </Dropdown>
         </Layout.Header>
-        <Layout.Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+        <Layout.Content>
+          <Breadcrumb>
+            {breadcrumb.list.map((item, index) => 
+              <Breadcrumb.Item key={index}>
+                {item.onClick ? <a href="javascript:;" onClick={item.onClick}>{item.title}</a> : item.title}
+              </Breadcrumb.Item>
+            )}
           </Breadcrumb>
-          <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+          <div className="main-wrap">
               {ROUTERS.map((item, i) =>
                 <Route key={i} path={item.path} component={item.component} exact />
               )}
