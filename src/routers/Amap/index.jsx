@@ -3,10 +3,11 @@ import { Menu } from 'antd';
 import './index.less'
 import amap from './components'
 import MAP_DATA from './constants'
-import { inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 
 @inject('breadcrumb')
+@observer
 class Amap extends React.PureComponent {
 
   @observable

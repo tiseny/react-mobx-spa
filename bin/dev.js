@@ -10,6 +10,10 @@ const config = require('../config')
 const app = express()
 const compiler = webpack(webpackConfig)
 
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+// Set port
+app.set('port', config.port)
 app.use(compress())
 
 const devMiddleware = webpackDevMiddleware(compiler, {
@@ -46,4 +50,17 @@ app.use(devMiddleware)
 app.use(hotMiddleware)
 app.use(express.static(config.basePath))
 
-app.listen(config.port, () => {})
+
+http.listen(config.port, () => {
+  console.log('listening on ' + app.get('port'))
+})
+
+
+io.on('connection', (socket) => {
+  // 群聊
+  socket.on('message', function (data) {
+
+    io.emit('message', data);
+  });
+
+})

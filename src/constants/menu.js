@@ -7,4 +7,8 @@ export default [{
   name: '地图',
   path: `${config.rootAlias}/amap`,
   icon: 'heart'
+},{
+  name: '聊天室',
+  path: `${config.rootAlias}/chat`,
+  icon: 'fork'
 }]

@@ -9,7 +9,7 @@ module.exports = {
   srcDir: path.resolve(__dirname, 'src'),
   outDir: path.resolve(__dirname, 'dist'),
   publicPath: NODE_ENV === 'development' ? '/' : './',
-  port: 8080,
+  port: 3000,
   proxy: {
     '/api': {
       target: 'https://api4.wlwulian.com/api',  // https://wlTestApi.wlwulian.com/api

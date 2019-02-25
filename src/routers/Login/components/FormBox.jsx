@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import { Form, Input, Button, Icon } from 'antd'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
+import { observable } from 'mobx';
 const FormItem = Form.Item
 
-@inject('Login')
-@observer
 @Form.create()
+@observer
 class FromBox extends Component {
   constructor(props) {
     super(props)
   }
+
+  @observable
+  loading = false
+
 
   handleSubmit = e => {
     e.preventDefault()
@@ -18,7 +22,6 @@ class FromBox extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form
-    const { loading } = this.props.Login
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem>
@@ -36,7 +39,7 @@ class FromBox extends Component {
           )}
         </FormItem>
         <FormItem>
-          <Button type='primary' htmlType='submit' loading={loading}>登录</Button>
+          <Button type='primary' htmlType='submit' loading={this.loading}>登录</Button>
         </FormItem>
       </Form>
     )

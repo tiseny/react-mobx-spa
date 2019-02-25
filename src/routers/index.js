@@ -27,7 +27,7 @@ class Routers extends Component {
   }
 
   componentWillMount() {
-    if (this.pathname == '/') {
+    if (this.pathname == `${config.rootAlias}/`) {
       if (Cookies.get('token')) {
         this.props.history.replace(`${config.rootAlias}/home`)
       } else {
