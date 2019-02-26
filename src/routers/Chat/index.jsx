@@ -13,6 +13,8 @@ const man = require('../../assets/man.png')
 
 let userId = ''
 let typeInItem = {}
+let startX = 0
+let startY = 0
 
 @inject('breadcrumb')
 @observer
@@ -24,6 +26,8 @@ class Chat extends Component {
   @observable list = []
   @observable userList = []
   @observable value = ''
+  @observable width = 250
+  @observable height = 100
 
   componentWillUnmount() {
     socket.emit('offline',{
@@ -95,8 +99,13 @@ class Chat extends Component {
                 </div> : <div className="notify"><span>{item.date}</span><span>{item.from}</span>{item.msg}</div>
               })
             }
-          </div>
-          <div className="msg-textArea">
+          </div>          
+          <div className="msg-textArea" style={{height: this.height + "px"}}>
+            <div 
+              className="top-bottom" 
+              draggable 
+              onDrag={this.handleDrag.bind(this, 'up')} 
+            ></div>
             <Input.TextArea
               key={this.inputKey}
               value={this.value}
@@ -109,7 +118,12 @@ class Chat extends Component {
             ></Input.TextArea>
           </div>
         </div>
-        <div className="right-box">
+        <div className="right-box" style={{width: this.width + "px"}}>
+          <div 
+            className="left-right" 
+            draggable 
+            onDrag={this.handleDrag.bind(this, 'left')}
+          ></div>
           {
             this.userList.map((item, idx) => <div className="item" key={idx}>
                 <img src={item.path}/>
@@ -133,15 +147,47 @@ class Chat extends Component {
       okText: '确定',
       onOk: () => {
         userId = ReactDOM.findDOMNode(this.inputName).value
-        
-        socket.emit('online', {
-          from: userId,
-          type: 'notify',
-          date: moment().format('HH:mm'),
-          msg: '上线了'
-        })
+        if (userId) {
+          socket.emit('online', {
+            from: userId,
+            type: 'notify',
+            date: moment().format('HH:mm'),
+            msg: '上线了'
+          })
+        } else {
+          return;
+        }
       }
     });
+  }
+
+  @action
+  handleDrag(type, e) {
+    if (e.pageX == 0 || e.pageY == 0) return;
+    let step = 0
+    switch (type) {
+      case 'left':
+        if (startX == 0) {
+          startX = +e.pageX
+        }
+
+        // 最小的宽度 250
+        step = startX - e.pageX
+        this.width = +this.width + step
+        startX -= step  
+        break;
+    
+      case 'up':
+        if (startY == 0) {
+          startY = +e.pageY
+        }
+
+        // 最小的高度 100
+        step = startY - e.pageY
+        this.height = +this.height + step
+        startY -= step
+        break;
+    }
   }
 
   @action
