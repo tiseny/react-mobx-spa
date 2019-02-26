@@ -57,10 +57,18 @@ http.listen(config.port, () => {
 
 
 io.on('connection', (socket) => {
-  // 群聊
-  socket.on('message', function (data) {
 
+  socket.on('online', function(data) {
+    io.emit('online', data)
+  })
+
+  socket.on('message', function (data) {
     io.emit('message', data);
   });
+
+  socket.on('offline', function(data) {
+    console.log(data)
+    io.emit('offline', data)
+  })
 
 })
